@@ -1,1 +1,1 @@
-# stock-sense
+#Stock Sense
