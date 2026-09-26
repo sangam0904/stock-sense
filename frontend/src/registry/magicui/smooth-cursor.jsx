@@ -11,21 +11,21 @@ export const DefaultCursorSVG = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={46}
-      height={50}
+      width={50}
+      height={54}
       viewBox="0 0 50 54"
       fill="none"
-      style={{ scale: 0.55, transformOrigin: "top left" }}
+      style={{ scale: 0.38, transformOrigin: "center" }}
     >
       <g filter="url(#cursor_shadow)">
         <path
           d="M42.6817 41.1495L27.5103 6.79925C26.7269 5.02557 24.2082 5.02558 23.3927 6.79925L7.59814 41.1495C6.75833 42.9759 8.52712 44.8902 10.4125 44.1954L24.3757 39.0496C24.8829 38.8627 25.4385 38.8627 25.9422 39.0496L39.8121 44.1954C41.6849 44.8902 43.4884 42.9759 42.6817 41.1495Z"
-          fill="#2563eb"
+          fill="#000000"
         />
         <path
           d="M43.7146 40.6933L28.5431 6.34306C27.3556 3.65428 23.5772 3.69516 22.3668 6.32755L6.57226 40.6778C5.3134 43.4156 7.97238 46.298 10.803 45.2549L24.7662 40.109C25.0221 40.0147 25.2999 40.0156 25.5494 40.1082L39.4193 45.254C42.2261 46.2953 44.9254 43.4347 43.7146 40.6933Z"
-          stroke="white"
-          strokeWidth={2.4}
+          stroke="#ffffff"
+          strokeWidth={2.2}
         />
       </g>
       <defs>
@@ -45,12 +45,12 @@ export const DefaultCursorSVG = () => {
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
             result="hardAlpha"
           />
-          <feOffset dy={2.2} />
-          <feGaussianBlur stdDeviation={2.2} />
+          <feOffset dy={2} />
+          <feGaussianBlur stdDeviation={2} />
           <feComposite in2="hardAlpha" operator="out" />
           <feColorMatrix
             type="matrix"
-            values="0 0 0 0 0.1 0 0 0 0 0.2 0 0 0 0 0.5 0 0 0 0.35 0"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.18 0"
           />
           <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
@@ -107,6 +107,29 @@ export function SmoothCursor({
       mediaQuery.removeEventListener("change", updateEnabled);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isEnabled) return;
+    document.documentElement.classList.add("has-smooth-cursor");
+    return () => {
+      document.documentElement.classList.remove("has-smooth-cursor");
+    };
+  }, [isEnabled]);
+
+  useEffect(() => {
+    if (!isEnabled) return;
+
+    const handleMouseLeave = () => setIsVisible(false);
+    const handleMouseEnter = () => setIsVisible(true);
+
+    document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mouseenter", handleMouseEnter);
+
+    return () => {
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseenter", handleMouseEnter);
+    };
+  }, [isEnabled]);
 
   useEffect(() => {
     if (!isEnabled) return;
@@ -190,8 +213,8 @@ export function SmoothCursor({
         position: "fixed",
         left: cursorX,
         top: cursorY,
-        translateX: "-20%",
-        translateY: "-20%",
+        translateX: "-50%",
+        translateY: "-50%",
         rotate: rotation,
         scale: scale,
         zIndex: 99999,
@@ -199,7 +222,7 @@ export function SmoothCursor({
         willChange: "transform",
         opacity: isVisible ? 1 : 0,
       }}
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.15 }}
     >
