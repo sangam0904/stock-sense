@@ -43,13 +43,3 @@
   100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
 }
 
-/* Completely hide original system cursor when SmoothCursor is active on desktop */
-@media (any-hover: hover) and (any-pointer: fine) {
-  html.has-smooth-cursor,
-  html.has-smooth-cursor *,
-  html.has-smooth-cursor *::before,
-  html.has-smooth-cursor *::after {
-    cursor: none !important;
-  }
-}
-
