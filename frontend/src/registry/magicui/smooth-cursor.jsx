@@ -15,7 +15,7 @@ export const DefaultCursorSVG = () => {
       height={54}
       viewBox="0 0 50 54"
       fill="none"
-      style={{ scale: 0.05, transformOrigin: "center" }}
+      style={{ scale: 0.02, transformOrigin: "center" }}
     >
       <g filter="url(#cursor_shadow)">
         <path
