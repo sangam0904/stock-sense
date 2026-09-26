@@ -16,6 +16,7 @@ import Adjustments from './pages/Adjustments';
 import MoveHistory from './pages/MoveHistory';
 import Warehouses from './pages/Warehouses';
 import Profile from './pages/Profile';
+import { SmoothCursor } from '@/registry/magicui/smooth-cursor';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -37,10 +38,12 @@ const ProtectedRoute = ({ children }) => {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+    <>
+      <SmoothCursor />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       
       <Route path="/" element={
         <ProtectedRoute>
@@ -59,5 +62,6 @@ export default function App() {
         <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>
+  </>
   );
 }
